@@ -14,9 +14,12 @@ public:
 private:
     AudioPluginProcessor& processorRef;
 
-    juce::Slider gainSlider;
-    juce::Label  gainLabel;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
+    juce::Slider delaySlider, feedbackSlider, lpfSlider, mixSlider;
+    juce::Label  delayLabel,  feedbackLabel,  lpfLabel,  mixLabel;
+
+    using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    std::unique_ptr<Attachment> delayAttachment, feedbackAttachment,
+                                lpfAttachment,   mixAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginEditor)
 };

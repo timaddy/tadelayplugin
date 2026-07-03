@@ -1,6 +1,6 @@
-# Audio Plugin
+# Delay + LPF
 
-A JUCE-based audio plugin supporting VST3, AU, and Standalone formats.
+A JUCE-based stereo delay plugin with a feedback low-pass filter. Supports VST3, AU, and Standalone formats.
 
 ## Requirements
 
@@ -17,17 +17,20 @@ cmake --build build --config Release
 
 The built plugin will be copied to your system plugin folder automatically.
 
+## Parameters
+
+| Name       | Range              | Default | Description                          |
+|------------|--------------------|---------|--------------------------------------|
+| Delay Time | 0.01 s – 2.0 s     | 0.5 s   | Time between the dry and delayed signal |
+| Feedback   | 0% – 95%           | 40%     | How much of the delayed signal feeds back |
+| LPF Cutoff | 200 Hz – 20 kHz    | 4 kHz   | Low-pass filter on the feedback path |
+| Mix        | 0.0 – 1.0          | 0.5     | Dry/wet blend                        |
+
 ## Project Structure
 
 ```
 Source/
-├── PluginProcessor.h/.cpp   # Audio processing and parameter state
-└── PluginEditor.h/.cpp      # Plugin UI
-CMakeLists.txt               # Build configuration
+├── PluginProcessor.h/.cpp   # Delay + LPF DSP and parameter state
+└── PluginEditor.h/.cpp      # Four-knob UI
+CMakeLists.txt               # Build configuration (JUCE via FetchContent)
 ```
-
-## Parameters
-
-| Name | Range | Default | Description |
-|------|-------|---------|-------------|
-| Gain | 0.0 – 1.0 | 0.5 | Output gain |

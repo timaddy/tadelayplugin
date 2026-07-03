@@ -1,6 +1,7 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_dsp/juce_dsp.h>
 
 class AudioPluginProcessor : public juce::AudioProcessor
 {
@@ -34,6 +35,17 @@ public:
 
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    static constexpr float kMaxDelaySeconds = 2.0f;
+
+    std::vector<std::vector<float>> delayBuffer;
+    std::vector<int> writePos;
+    int delayBufferSize = 0;
+
+    // One 1-pole LPF state per channel
+    std::vector<float> lpfState;
+
+    double currentSampleRate = 44100.0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginProcessor)
 };
