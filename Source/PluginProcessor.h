@@ -3,11 +3,11 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
-class AudioPluginProcessor : public juce::AudioProcessor
+class TaDelayPluginProcessor : public juce::AudioProcessor
 {
 public:
-    AudioPluginProcessor();
-    ~AudioPluginProcessor() override;
+    TaDelayPluginProcessor();
+    ~TaDelayPluginProcessor() override;
 
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -47,5 +47,5 @@ private:
 
     double currentSampleRate = 44100.0;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TaDelayPluginProcessor)
 };

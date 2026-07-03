@@ -2,17 +2,17 @@
 
 #include "PluginProcessor.h"
 
-class AudioPluginEditor : public juce::AudioProcessorEditor
+class TaDelayPluginEditor : public juce::AudioProcessorEditor
 {
 public:
-    explicit AudioPluginEditor (AudioPluginProcessor&);
-    ~AudioPluginEditor() override;
+    explicit TaDelayPluginEditor (TaDelayPluginProcessor&);
+    ~TaDelayPluginEditor() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-    AudioPluginProcessor& processorRef;
+    TaDelayPluginProcessor& processorRef;
 
     juce::Slider delaySlider, feedbackSlider, lpfSlider, mixSlider;
     juce::Label  delayLabel,  feedbackLabel,  lpfLabel,  mixLabel;
@@ -21,5 +21,5 @@ private:
     std::unique_ptr<Attachment> delayAttachment, feedbackAttachment,
                                 lpfAttachment,   mixAttachment;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TaDelayPluginEditor)
 };

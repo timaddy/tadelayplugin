@@ -17,7 +17,7 @@ namespace {
     }
 }
 
-AudioPluginEditor::AudioPluginEditor (AudioPluginProcessor& p)
+TaDelayPluginEditor::TaDelayPluginEditor (TaDelayPluginProcessor& p)
     : AudioProcessorEditor (&p), processorRef (p)
 {
     setupKnob (delaySlider,    delayLabel,    "Delay",    *this);
@@ -35,9 +35,9 @@ AudioPluginEditor::AudioPluginEditor (AudioPluginProcessor& p)
     setSize (480, 220);
 }
 
-AudioPluginEditor::~AudioPluginEditor() {}
+TaDelayPluginEditor::~TaDelayPluginEditor() {}
 
-void AudioPluginEditor::paint (juce::Graphics& g)
+void TaDelayPluginEditor::paint (juce::Graphics& g)
 {
     g.fillAll (juce::Colour (0xff1a1a2e));
     g.setColour (juce::Colours::white);
@@ -46,7 +46,7 @@ void AudioPluginEditor::paint (juce::Graphics& g)
                       juce::Justification::centred, 1);
 }
 
-void AudioPluginEditor::resized()
+void TaDelayPluginEditor::resized()
 {
     auto area = getLocalBounds().reduced (16);
     area.removeFromTop (36);

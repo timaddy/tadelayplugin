@@ -1,7 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-AudioPluginProcessor::AudioPluginProcessor()
+TaDelayPluginProcessor::TaDelayPluginProcessor()
     : AudioProcessor (BusesProperties()
                         .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
                         .withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
@@ -9,9 +9,9 @@ AudioPluginProcessor::AudioPluginProcessor()
 {
 }
 
-AudioPluginProcessor::~AudioPluginProcessor() {}
+TaDelayPluginProcessor::~TaDelayPluginProcessor() {}
 
-juce::AudioProcessorValueTreeState::ParameterLayout AudioPluginProcessor::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout TaDelayPluginProcessor::createParameterLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
@@ -41,7 +41,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout AudioPluginProcessor::create
     return layout;
 }
 
-void AudioPluginProcessor::prepareToPlay (double sampleRate, int)
+void TaDelayPluginProcessor::prepareToPlay (double sampleRate, int)
 {
     currentSampleRate = sampleRate;
     delayBufferSize = static_cast<int> (kMaxDelaySeconds * sampleRate) + 1;
@@ -52,13 +52,13 @@ void AudioPluginProcessor::prepareToPlay (double sampleRate, int)
     lpfState.assign (channels, 0.0f);
 }
 
-void AudioPluginProcessor::releaseResources()
+void TaDelayPluginProcessor::releaseResources()
 {
     delayBuffer.clear();
     lpfState.clear();
 }
 
-void AudioPluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
+void TaDelayPluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
 {
     juce::ScopedNoDenormals noDenormals;
 
@@ -96,33 +96,33 @@ void AudioPluginProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce:
     }
 }
 
-bool AudioPluginProcessor::hasEditor() const { return true; }
+bool TaDelayPluginProcessor::hasEditor() const { return true; }
 
-juce::AudioProcessorEditor* AudioPluginProcessor::createEditor()
+juce::AudioProcessorEditor* TaDelayPluginProcessor::createEditor()
 {
-    return new AudioPluginEditor (*this);
+    return new TaDelayPluginEditor (*this);
 }
 
-const juce::String AudioPluginProcessor::getName() const { return JucePlugin_Name; }
-bool AudioPluginProcessor::acceptsMidi() const            { return false; }
-bool AudioPluginProcessor::producesMidi() const           { return false; }
-bool AudioPluginProcessor::isMidiEffect() const           { return false; }
-double AudioPluginProcessor::getTailLengthSeconds() const { return kMaxDelaySeconds; }
+const juce::String TaDelayPluginProcessor::getName() const { return JucePlugin_Name; }
+bool TaDelayPluginProcessor::acceptsMidi() const            { return false; }
+bool TaDelayPluginProcessor::producesMidi() const           { return false; }
+bool TaDelayPluginProcessor::isMidiEffect() const           { return false; }
+double TaDelayPluginProcessor::getTailLengthSeconds() const { return kMaxDelaySeconds; }
 
-int AudioPluginProcessor::getNumPrograms()                              { return 1; }
-int AudioPluginProcessor::getCurrentProgram()                           { return 0; }
-void AudioPluginProcessor::setCurrentProgram (int)                      {}
-const juce::String AudioPluginProcessor::getProgramName (int)           { return {}; }
-void AudioPluginProcessor::changeProgramName (int, const juce::String&) {}
+int TaDelayPluginProcessor::getNumPrograms()                              { return 1; }
+int TaDelayPluginProcessor::getCurrentProgram()                           { return 0; }
+void TaDelayPluginProcessor::setCurrentProgram (int)                      {}
+const juce::String TaDelayPluginProcessor::getProgramName (int)           { return {}; }
+void TaDelayPluginProcessor::changeProgramName (int, const juce::String&) {}
 
-void AudioPluginProcessor::getStateInformation (juce::MemoryBlock& destData)
+void TaDelayPluginProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     auto state = apvts.copyState();
     std::unique_ptr<juce::XmlElement> xml (state.createXml());
     copyXmlToBinary (*xml, destData);
 }
 
-void AudioPluginProcessor::setStateInformation (const void* data, int sizeInBytes)
+void TaDelayPluginProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     std::unique_ptr<juce::XmlElement> xml (getXmlFromBinary (data, sizeInBytes));
     if (xml && xml->hasTagName (apvts.state.getType()))
@@ -131,5 +131,5 @@ void AudioPluginProcessor::setStateInformation (const void* data, int sizeInByte
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new AudioPluginProcessor();
+    return new TaDelayPluginProcessor();
 }
