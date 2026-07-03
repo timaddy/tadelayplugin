@@ -1,6 +1,6 @@
 # Delay + LPF
 
-A JUCE-based stereo delay plugin with a feedback low-pass filter. Supports VST3, AU, and Standalone formats.
+A JUCE-based stereo delay plugin with a feedback low-pass filter. Targets the VST3 format.
 
 ## Requirements
 

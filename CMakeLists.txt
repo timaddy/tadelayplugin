@@ -19,7 +19,7 @@ juce_add_plugin(AudioPlugin
     COPY_PLUGIN_AFTER_BUILD     TRUE
     PLUGIN_MANUFACTURER_CODE    Manu
     PLUGIN_CODE                 Demo
-    FORMATS                     AU VST3 Standalone
+    FORMATS                     VST3
     PRODUCT_NAME                "Audio Plugin"
 )
 
