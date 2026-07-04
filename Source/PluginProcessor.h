@@ -33,17 +33,25 @@ public:
 
     juce::AudioProcessorValueTreeState apvts;
 
+    enum DelayMode { Digital = 0, Analogue = 1 };
+
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
     static constexpr float kMaxDelaySeconds = 2.0f;
+    // Extra buffer headroom for analogue modulation (±10 ms)
+    static constexpr float kModDepthSeconds = 0.01f;
 
     std::vector<std::vector<float>> delayBuffer;
     std::vector<int> writePos;
     int delayBufferSize = 0;
 
-    // One 1-pole LPF state per channel
     std::vector<float> lpfState;
+
+    // Analogue mode: per-channel LFO phase for pitch wobble
+    std::vector<float> lfoPhase;
+    // Analogue mode: per-channel saturation state
+    std::vector<float> satState;
 
     double currentSampleRate = 44100.0;
 
